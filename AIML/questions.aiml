@@ -1,0 +1,37 @@
+<aiml>
+
+    <category>
+        <pattern>who is father of *</pattern>
+        <template>
+            <set name="father_of"><formal> <star /> </formal></set>
+            I don't know about that
+        </template>
+    </category>
+
+    <category>
+        <pattern>who is mother of *</pattern>
+        <template>
+            <set name="mother_of"><formal> <star /> </formal></set>
+            I don't know about that
+        </template>
+    </category>
+
+    <category>
+        <pattern>who is child of *</pattern>
+        <template>
+            <set name="child_of"><formal> <star /> </formal></set>
+            I don't know about that
+        </template>
+    </category>
+
+    <category>
+        <pattern>reset questions</pattern>
+        <template>
+            <set name="father_of">unknown</set>
+            <set name="mother_of">unknown</set>
+            <set name="child_of">unknown</set>
+            questions resetted
+        </template>
+    </category>
+
+</aiml>

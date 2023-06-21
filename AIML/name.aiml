@@ -1,0 +1,25 @@
+<aiml>
+    
+    <category>
+        <pattern>MY NAME IS *</pattern>
+        <template>
+            Hi <set name="username"><formal><star /></formal></set>
+            <get name="username" />
+        </template>
+    </category>
+
+    <category>
+        <pattern>WHAT IS MY NAME</pattern>
+        <template>
+            <condition name="username">
+                <li value="unknown">
+                    I don't know your name
+                </li>
+                <li>
+                    you are <get name="username" />
+                </li>
+            </condition>
+        </template>
+    </category>
+
+</aiml>
