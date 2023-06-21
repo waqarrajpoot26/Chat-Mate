@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="icon" type="image/x-icon" href="{{url_for('static' , filename='img/chatbot1.ico')}}" />
+  <title>ChatMate</title>
+  <style>
+    body{
+      background-image: url("{{url_for('static' , filename='img/box2.webp')}}");
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+    
+    /* Chatbox container */
+    .chatbox-container {
+      background-color:#efd9ed; 
+      font-family: Baskerville;
+      width: 500px;
+      height: 474px;
+      background-size: cover;
+      background-position: center;
+      border: #4CAF50 12px;
+      border-radius: 10px;
+      margin: 16px auto;
+      padding: 17px;
+      box-sizing: border-box;
+      overflow-y: scroll;
+    }
+    
+    /* Individual chat messages */
+    .chat-message {
+      font-style: oblique;
+      color: #fff;
+      border-radius: 23px;
+      padding: 8px;
+      margin-bottom: 18px;
+    }
+
+    .user-message {
+      background-color: #429c90;
+      margin-left: 230px;
+      margin-right: auto;
+    }
+
+    .chatbot-message {
+      background-color: #0690a6;
+      margin-left: auto;
+      margin-right: 210px;
+    }
+
+    /* User input area */
+    .user-input {
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
+      margin-top: -15px;
+      text-align: center;
+    }
+
+    .user-input input {
+      width: 33%;
+      padding: 9px;
+      border: wheat;
+      border-radius: 5px;
+      font-size: 15px;
+    }
+
+    .user-input input:focus {
+      outline: none;
+    }
+    
+    .user-input button {
+      background-color: #4CAF50;
+      color: #d2ebd6;
+      border: none;
+      border-radius: 10px;
+      padding: 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    
+    .user-input button:hover {
+      background-color: #45a049;
+    }
+
+    .header {
+      position: absolute;
+      top: calc(50% - 130px);
+      left: calc(50% - 530px);
+      z-index: 2;
+    }
+
+    .header div {
+      float: left;
+      color: #fff;
+      font-family: 'Exo', sans-serif;
+      font-size: 50px;
+      font-weight: 200;
+    }
+
+    .header div span {
+      color: #9bfa53 !important;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="body"></div>
+  <div class="grad"></div>
+  <div class="header">
+    <div>Chat<span>Mate</span></div>
+  </div>
+  <br>
+  <div class="chatbox-container">
+    <div class="chat-message chatbot-message">Welcome to ChatMate! How can I assist you?</div>
+  </div>
+
+  <div class="user-input">
+    <input type="text" id="user-message" placeholder="Type your message here..." />
+    <button onclick="sendMessage()">Send</button>
+  </div>
+
+  <script>
+    function sendMessage() {
+      var userInput = document.getElementById("user-message").value;
+      if (userInput !== "") {
+        var chatboxContainer = document.getElementsByClassName("chatbox-container")[0];
+        
+        // Display user message
+        var userMessage = document.createElement("div");
+        userMessage.classList.add("chat-message");
+        userMessage.classList.add("user-message");
+        userMessage.textContent = userInput;
+        chatboxContainer.appendChild(userMessage);
+
+        // Send user message to the backend to get chatbot's response
+        fetch('/get_response', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ message: userInput })
+        })
+        .then(response => response.json())
+        .then(data => {
+          // Display chatbot's response
+          var chatbotMessage = document.createElement("div");
+          chatbotMessage.classList.add("chat-message");
+          chatbotMessage.classList.add("chatbot-message");
+          chatbotMessage.textContent = data.response;
+          chatboxContainer.appendChild(chatbotMessage);
+        });
+
+        document.getElementById("user-message").value = "";
+      }
+    }
+
+    document.getElementById("user-message").addEventListener("keyup", function (event) {
+  if (event.key === "Enter") {
+    sendMessage();
+  }
+});
+  </script>
+</body>
+</html>

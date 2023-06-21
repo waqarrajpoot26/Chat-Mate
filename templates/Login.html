@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="icon" type="image/x-icon" href="{{url_for('static' , filename='img/chatbot1.ico')}}" />
+	<title>Sign-in ChatMate</title>
+	<link rel="stylesheet" href="{{url_for('static' , filename='css/Login.css')}}">
+</head>
+<body>
+	<div class="body"></div>
+	<div class="grad"></div>
+	<div class="header">
+		<div>Chat<span>Mate</span></div>
+	</div>
+	<br>
+	<div class="login">
+		<form id="login-form" method="post" action="/login">
+			<input type="text" placeholder="Enter Email" name="email" id="email"><br>
+			<input type="password" placeholder="Enter Password" name="password" id="password"><br>
+			<input type="submit" value="Login" id="login-button" >
+		</form>
+		<p class="register">Create New Account <a class="signup" href="registration">Signup</a></p> 
+	</div>
+
+	
+</body>
+</html>
